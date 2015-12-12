@@ -1,0 +1,55 @@
+
+<%- include header -%>
+
+    <article class="box post">
+        <section>
+            <div class="title align-center">
+                <h2>Login</h2>
+                <p>Login with your username and password. You don't have an
+                Account yet ? <a href="/signup" class="btn">Signup now!</a></p>
+            </div>
+            <div class="wide">
+                <div class="form-box">
+                    <% if (errorMessage) { %>
+                    <div id="error">
+                        <div>
+                            <p>Something went wrong. Please refresh and try again. (Error: <b><%= errorMessage %></b>)</p>
+                        </div>
+                    </div>
+                    <% } %>
+                    <form role="form" id="login" name="login" method="post" novalidate>
+
+                        <div class="input-group margin-bottom-sm">
+                          <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                          <input class="form-control" name="username" type="text" placeholder="Email address">
+                        </div>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                          <input class="form-control" name="password" type="password" placeholder="Password">
+                        </div>
+
+                        <div class="row 50%">
+                            <div class="12u">
+                                <br />
+                                <a href="#" class="form-button-submit button"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </article>
+
+<script>
+$(document).ready(function()
+{
+    $(".form-button-submit").click(function(e)
+    {
+        $("#login")[0].submit();
+        e.preventDefault();
+        return false;
+    });
+});
+</script>
+
+<%- include footer -%>

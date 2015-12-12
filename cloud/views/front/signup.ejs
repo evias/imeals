@@ -1,0 +1,48 @@
+
+<%- include header -%>
+
+    <article class="box post">
+        <section>
+            <div class="title align-center">
+                <h2>Register Now</h2>
+                <p>Signup for an account today !</p>
+                <p>Already have an account ? <a href="/signin" class="btn">Login</a></p>
+            </div>
+            <div class="wide">
+                <div class="form-box">
+                    <% if (errorMessage) { %>
+                    <div id="error">
+                        <div>
+                            <p>Error: <%= errorMessage %></p>
+                        </div>
+                    </div>
+                    <% } %>
+                    <form id="signup" name="signup" method="post" novalidate="novalidate">
+
+                        <div class="input-group margin-bottom-sm">
+                          <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                          <input name="username" class="form-control" type="text" placeholder="Email address">
+                        </div>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                          <input name="password" class="form-control" type="password" placeholder="Password">
+                        </div>
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                          <input name="pwconfirm" class="form-control" type="password" placeholder="Confirm password">
+                        </div>
+
+                        <div class="align-center">We take privacy seriously.</div>
+                        <div class="row 50%">
+                            <div class="12u">
+                                <br />
+                                <a href="#" class="form-button-submit button"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </article>
+
+<%- include footer -%>

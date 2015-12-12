@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>iMeals</title>
+        <link rel="icon"
+               type="image/vnd.microsoft.icon"
+               href="/images/favicon.ico" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Grégory Saive <greg@evias.be> (http://evias.be)" />
+        <meta name="description" content="iMeals - Open Source Food Management" />
+        <meta name="keywords" content="imeals,food,restaurant,delivery,order,management" />
+        <noscript>
+            <link rel="stylesheet" href="/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="/css/skel.css" />
+            <link rel="stylesheet" href="/css/style.css" />
+            <link rel="stylesheet" href="/css/style-desktop.css" />
+        </noscript>
+        <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/jquery.dropotron.min.js"></script>
+        <script src="/js/skel.min.js"></script>
+        <script src="/js/skel-layers.min.js"></script>
+        <script src="/js/init.js"></script>
+        <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css" /><![endif]-->
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    </head>
+    <body class="right-sidebar">
+        <div id="header-wrapper">
+            <div id="header" class="container">
+                <h1 id="logo" class="noUpper"><a href="/"><img src="/images/picpoll.png" alt="PicPoll" /></h1>
+                <p>Get your own &bdquo;online Restaurant&rdquo; App !</p>
+                <nav id="nav">
+                    <ul>
+                    <% if (currentUser) { %>
+                        <li><a class="icon fa-home" href="/">
+                            <span>Account: <b><%= currentUser.get("username") %></b></span>
+                        </a></li>
+                    <% } else { %>
+                        <li><a class="icon fa-home" href="/"><span>Welcome</span></a></li>
+                        <li><a class="icon fa-sign-in" href="/signin">
+                            <span>Sign-In</span>
+                        </a></li>
+                    <% } %>
+
+                    <% if (currentUser) { %>
+                        <li><a class="icon fa-sign-out" href="/signout">
+                            <span>Logout</span>
+                        </a></li>
+                    <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <div id="main" class="container">
+                <div class="row">
+                    <div id="content" class="12u">

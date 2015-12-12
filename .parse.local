@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "YOUR_PARSE_APP": {
+      "applicationId": "YOUR_PARSE_APP_ID"
+    },
+    "_default": {
+      "link": "YOUR_PARSE_APP"
+    }
+  }
+}
