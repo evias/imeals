@@ -48,4 +48,14 @@ module.exports = function(app)
   {
     response.render('admin/users/list', {});
   });
+
+  app.get('/users/employees', function(request, response)
+  {
+    response.render('admin/users/employees', {});
+  });
+
+  app.get('/users/guests', function(request, response)
+  {
+    response.render('admin/users/guests', {});
+  });
 }
