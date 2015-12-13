@@ -24,8 +24,16 @@ limitations under the License.
 
 module.exports = function(app)
 {
-  app.get('/admin', function(request, response) {
-    console.log("admin controller");
+  app.use(function(request, response, next) {
+    var currentUser = Parse.User.current();
+    if (! currentUser)
+      response.redirect("/signin");
+    else
+      next();
+  });
+
+  app.get('/', function(request, response) {
+
     var error   = request.query.error;
     var success = request.query.success;
 

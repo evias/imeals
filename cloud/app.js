@@ -29,8 +29,9 @@ core      = require("cloud/core.js");
 crypto  = require('crypto');
 express = require('express');
 
-// express app
+// express apps (modules)
 app = express();
+admin = express();
 
 app.set('views', 'cloud/views');
 app.set('view engine', 'ejs');
@@ -51,75 +52,16 @@ app.use(express.cookieSession({
   ],
   secret: "ca8d4ed0467c9044e216c6fad62fe24beedf8ff1"}));
 
-/*******************************************************************************
- * PRE-HTTP requests handlers for iMeals
- * These functions act as Plugins to the HTTP handlers.
- * @link https://imeals.parseapp.com
- *******************************************************************************/
-
-/**
- * Session management PRE-HTTP request handler.
- * This function will try to retrieve a valid session token
- * and call Parse.User.become() with it in order for Parse.User
- * method current() to return the correct request initiating user
- * object.
- **/
-app.use(function(req, res, next)
-{
-  Parse.User
-    .become(req.session.sessionToken ? req.session.sessionToken : "invalidSessionToken")
-    .then(
-      function(currentUser) {
-        // currentUser now contains the BROWSER's logged in user.
-        // Parse.User.current() for `req` will return the browsers user as well.
-
-        next();
-      },
-      function(error) {
-        // not logged in => will result in redirection to /signin
-        next();
-      });
-});
-
-/**
- * Fill default local request variables.
- * This method fills the variables :
- * - currentUser   : Parse.User instance or boolean false
- * - userHash      : user hash String (SHA-1)
- * - iMealsConfig  : Parse.Config for this Parse App instance
- **/
-app.use(function(req, res, next)
-{
-  var currentUser = Parse.User.current();
-  if (! currentUser)
-    currentUser = false;
-
-  var ipAddress = req.connection.remoteAddress;
-  var userAgent = req.headers['user-agent'];
-  var userHash  = crypto.createHash("sha1")
-                        .update(userAgent + "@" + ipAddress)
-                        .digest("hex");
-
-  res.locals.currentUser  = currentUser;
-  res.locals.userHash     = userHash;
-
-  // load Parse App Parse.Config and store into
-  // template locals.
-  Parse.Config.get().then(
-    function(config)
-    {
-      res.locals.iMealsConfig  = config;
-      next();
-    });
-});
-
 /**
  * Middleware for handling modules of the application.
  * This middleware defines all the applications possible request
  * handlers. see files for more details.
  **/
+require('cloud/controllers/requestPlugins.js')(app);
 require('cloud/controllers/default.js')(app);
-require('cloud/controllers/admin.js')(app);
 
-// Attach the Express app to Cloud Code.
+require('cloud/controllers/admin.js')(admin);
+app.use("/admin", admin);
+
+// Attach the Express apps to Cloud Code.
 app.listen();
