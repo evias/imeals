@@ -5,7 +5,9 @@
         <link rel="icon"
                type="image/vnd.microsoft.icon"
                href="/images/favicon.ico" />
+        <meta charset="utf-8">
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="author" content="Grégory Saive <greg@evias.be> (http://evias.be)" />
         <meta name="description" content="iMeals - Open Source Food Management" />
         <meta name="keywords" content="imeals,food,restaurant,delivery,order,management" />
@@ -34,7 +36,7 @@
                     <ul>
                     <% if (currentUser) { %>
                         <li><a class="icon fa-home" href="/">
-                            <span>Account: <b><%= currentUser.get("username") %></b></span>
+                            <span>Account: <b><%= currentUser.get("name") %></b></span>
                         </a></li>
                         <% if ("Guest" != currentUser.get("aclRole")) { %>
                         <li><a class="icon fa-home" href="/admin">

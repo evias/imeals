@@ -1,0 +1,3 @@
+[submodule "cloud/3rdparty/parse-facebook-user-session"]
+	path = cloud/3rdparty/parse-facebook-user-session
+	url = git@github.com:ParsePlatform/parse-facebook-user-session.git

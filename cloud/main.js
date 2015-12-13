@@ -22,7 +22,6 @@ limitations under the License.
  * @link https://picpoll.parseapp.com
 **/
 models = require('cloud/models.js');
-core   = require('cloud/core.js');
 
 require('cloud/app.js');
 

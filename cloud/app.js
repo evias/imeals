@@ -22,11 +22,7 @@ limitations under the License.
  * @link https://imeals.parseapp.com
 **/
 
-models    = require("cloud/models.js");
-core      = require("cloud/core.js");
-
 // dependencies
-crypto  = require('crypto');
 express = require('express');
 
 // express apps (modules)

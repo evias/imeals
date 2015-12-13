@@ -41,19 +41,25 @@ module.exports = function(app)
    **/
   app.use(function(req, res, next)
   {
-    Parse.User
-      .become(req.session.sessionToken ? req.session.sessionToken : "invalidSessionToken")
-      .then(
-        function(currentUser) {
-          // currentUser now contains the BROWSER's logged in user.
-          // Parse.User.current() for `req` will return the browsers user as well.
+    var sessionToken = req.session.sessionToken ? req.session.sessionToken : "invalidSessionToken";
+    var currentUser  = Parse.User.current();
+    if (! currentUser) {
+      Parse.User
+        .become(sessionToken)
+        .then(
+          function(currentUser) {
+            // currentUser now contains the BROWSER's logged in user.
+            // Parse.User.current() for `req` will return the browsers user as well.
 
-          next();
-        },
-        function(error) {
-          // not logged in => will result in redirection to /signin
-          next();
-        });
+            next();
+          },
+          function(error) {
+            // not logged in => will result in redirection to /signin
+            next();
+          });
+    }
+    else
+      next();
   });
 
   /**

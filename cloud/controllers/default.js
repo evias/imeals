@@ -24,6 +24,24 @@ limitations under the License.
 
 module.exports = function(app)
 {
+
+  parseExpressHttpsRedirect = require('parse-express-https-redirect');
+  parseExpressCookieSession = require('parse-express-cookie-session');
+  parseFacebookUserSession = require('cloud/3rdparty/parse-facebook-user-session/parse-facebook-user-session');
+
+  /**
+   * the facebookLogin middleware allows to check for a valid
+   * facebook session and authorization for the app before
+   * handling a given request.
+   **/
+  facebookLogin = parseFacebookUserSession({
+    clientId: '544771132355164',
+    appSecret: '0384224971e418557fec41ff560964fc',
+    redirectUri: '/facebook-cb',
+    scope: 'email',
+    verbose: true
+  });
+
   /*******************************************************************************
    * HTTP GET requests handlers for iMeals
    * Following code represents the Default Controller implementation
@@ -124,7 +142,14 @@ module.exports = function(app)
         request.session.loggedState  = true;
         request.session.sessionToken = currentUser.getSessionToken();
 
-        response.redirect("/");
+        userAclRole = currentUser.get("aclRole");
+
+        if ("Guest" == userAclRole)
+          response.redirect("/");
+        else if ("Admin" == userAclRole
+                || "Manager" == userAclRole
+                || "Employee" == userAclRole)
+          response.redirect("/admin");
       },
       error: function(currentUser, error) {
         request.session = null;
@@ -143,12 +168,14 @@ module.exports = function(app)
    **/
   app.post('/signup', function(request, response)
   {
+    var name     = request.body.name;
     var username = request.body.username;
     var email    = request.body.username;
     var password = request.body.password;
     var pwconfirm = request.body.pwconfirm;
 
     var formValues = {
+      "name": name,
       "username": username,
       "email": email
     };
@@ -156,6 +183,9 @@ module.exports = function(app)
     errors = [];
     if (!email || !email.length || !username || !username.length)
       errors.push("The Email adress may not be empty.");
+
+    if (!name || !name.length)
+      errors.push("The name field may not be left empty.");
 
     if (!password || !password.length)
       errors.push("The Password may not be empty.");
@@ -171,6 +201,7 @@ module.exports = function(app)
     else {
     // sign-up user !
       var currentUser = new Parse.User();
+      currentUser.set("name", name);
       currentUser.set("username", username);
       currentUser.set("email", email);
       currentUser.set("password", password);

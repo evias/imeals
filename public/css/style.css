@@ -904,3 +904,4 @@ input[type="reset"],
 #uploadError { display: none; font-size: 20px; color: #ee1114; }
 .upload-preview { max-width: 200px; max-height: 150px;}
 #error p {color: #ee1114; font-weight: bold;}
+.error p {color: #ee1114; font-weight: bold;}

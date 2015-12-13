@@ -17,6 +17,11 @@
                         </div>
                     </div>
                     <% } %>
+                    <div id="facebook-error" style="display:none;" class="error">
+                        <div>
+                            <p>Error authenticating with Facebook. Pleasy try again!</p>
+                        </div>
+                    </div>
                     <form role="form" id="login" name="login" method="post" novalidate>
 
                         <div class="input-group margin-bottom-sm">
@@ -31,7 +36,7 @@
                         <div class="row 50%">
                             <div class="12u">
                                 <br />
-                                <a href="#" class="form-button-submit button"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+                                <a href="#" class="form-button-submit button login"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
                             </div>
                         </div>
                     </form>
@@ -43,7 +48,7 @@
 <script>
 $(document).ready(function()
 {
-    $(".form-button-submit").click(function(e)
+    $(".form-button-submit.login").click(function(e)
     {
         $("#login")[0].submit();
         e.preventDefault();
