@@ -33,8 +33,8 @@ module.exports = function(app)
       next();
   });
 
-  app.get('/', function(request, response) {
-
+  app.get('/', function(request, response)
+  {
     var error   = request.query.error;
     var success = request.query.success;
 
@@ -42,5 +42,10 @@ module.exports = function(app)
       "errorMessage": error ? unescape(error) : false,
       "successMessage": success ? unescape(success) : false
     });
+  });
+
+  app.get('/users', function(request, response)
+  {
+    response.render('admin/users/list', {});
   });
 }
