@@ -25,11 +25,10 @@ limitations under the License.
 module.exports = function(app)
 {
   app.use(function(request, response, next) {
-    var currentUser = Parse.User.current();
-    if (! currentUser || "Guest" == currentUser.get("aclRole"))
-      // admin available only to employees.
-      response.redirect("/signin");
-    else
+    var token = request.query.authToken;
+
+    // XXX validate auth token for API access.
+    if (true)
       next();
   });
 
@@ -38,9 +37,8 @@ module.exports = function(app)
     var error   = request.query.error;
     var success = request.query.success;
 
-    response.render('admin/dashboard', {
-      "errorMessage": error ? unescape(error) : false,
-      "successMessage": success ? unescape(success) : false
+    response.status(200).send({
+      "version": response.locals.iMealsConfig.get("apiVersion")
     });
   });
 }

@@ -31,6 +31,7 @@ express = require('express');
 
 // express apps (modules)
 app = express();
+api = express();
 admin = express();
 
 app.set('views', 'cloud/views');
@@ -62,6 +63,9 @@ require('cloud/controllers/default.js')(app);
 
 require('cloud/controllers/admin.js')(admin);
 app.use("/admin", admin);
+
+require('cloud/controllers/api.js')(api);
+app.use("/api", api);
 
 // Attach the Express apps to Cloud Code.
 app.listen();

@@ -174,6 +174,7 @@ module.exports = function(app)
       currentUser.set("username", username);
       currentUser.set("email", email);
       currentUser.set("password", password);
+      currentUser.set("aclRole", "Guest");
 
       currentUser.signUp(null, {
       success: function(currentUser) {
