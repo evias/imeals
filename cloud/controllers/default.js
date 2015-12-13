@@ -143,13 +143,15 @@ module.exports = function(app)
         request.session.sessionToken = currentUser.getSessionToken();
 
         userAclRole = currentUser.get("aclRole");
+        welcomeMsg  = encodeURIComponent("Welcome back " + currentUser.get("name")
+                    + ", we are glad to see you again!");
 
         if ("Guest" == userAclRole)
-          response.redirect("/");
+          response.redirect("/?info=" + welcomeMsg);
         else if ("Admin" == userAclRole
                 || "Manager" == userAclRole
                 || "Employee" == userAclRole)
-          response.redirect("/admin");
+          response.redirect("/admin?info=" + welcomeMsg);
       },
       error: function(currentUser, error) {
         request.session = null;

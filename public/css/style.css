@@ -905,3 +905,4 @@ input[type="reset"],
 .upload-preview { max-width: 200px; max-height: 150px;}
 #error p {color: #ee1114; font-weight: bold;}
 .error p {color: #ee1114; font-weight: bold;}
+.success p {color: #217904; font-weight: bold;}

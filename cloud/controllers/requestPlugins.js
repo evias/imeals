@@ -84,12 +84,21 @@ module.exports = function(app)
     var userHash  = crypto.createHash("sha1")
                           .update(userAgent + "@" + ipAddress)
                           .digest("hex");
+    var infoMsg   = req.query.info;
+    var errorMsg  = req.query.error;
 
     res.locals.currentUser  = currentUser;
     res.locals.userHash     = userHash;
 
-    if (! res.locals.globalErrorMessage)
+    if (!errorMsg && !res.locals.globalErrorMessage)
       res.locals.globalErrorMessage = false;
+    else if (errorMsg)
+      res.locals.globalErrorMessage = errorMsg;
+
+    if (!infoMsg && !res.locals.globalInfoMessage)
+      res.locals.globalInfoMessage = false;
+    else if (infoMsg)
+      res.locals.globalInfoMessage = infoMsg;
 
     // load Parse App Parse.Config and store into
     // template locals.
