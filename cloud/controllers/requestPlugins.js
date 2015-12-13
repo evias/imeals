@@ -51,6 +51,10 @@ module.exports = function(app)
             // currentUser now contains the BROWSER's logged in user.
             // Parse.User.current() for `req` will return the browsers user as well.
 
+            if (! currentUser.get("emailVerified"))
+              res.locals.globalErrorMessage = "Please verify your Account, "
+                  + "we have sent you an e-mail with a link for confirmation.";
+
             next();
           },
           function(error) {
@@ -83,6 +87,9 @@ module.exports = function(app)
 
     res.locals.currentUser  = currentUser;
     res.locals.userHash     = userHash;
+
+    if (! res.locals.globalErrorMessage)
+      res.locals.globalErrorMessage = false;
 
     // load Parse App Parse.Config and store into
     // template locals.

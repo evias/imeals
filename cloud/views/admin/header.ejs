@@ -192,3 +192,9 @@
         <div id="page-wrapper">
 
             <div class="container-fluid">
+
+                <% if (globalErrorMessage) { %>
+                <div class="error">
+                    <p><%= globalErrorMessage %></p>
+                </div>
+                <% } %>

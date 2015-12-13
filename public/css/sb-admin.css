@@ -225,3 +225,6 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+
+#error p {color: #ee1114; font-weight: bold;}
+.error p {color: #ee1114; font-weight: bold;}

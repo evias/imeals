@@ -63,3 +63,9 @@
             <div id="main" class="container">
                 <div class="row">
                     <div id="content" class="12u">
+
+                        <% if (globalErrorMessage) { %>
+                        <div class="error">
+                            <p><%= globalErrorMessage %></p>
+                        </div>
+                        <% } %>
